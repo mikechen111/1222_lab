@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dice Rolling Simulator</title>
+</head>
+<body>
+  <form action="#">
+    <input id="rollButton" type="button" value="Roll Dice">
+  </form>
+	<img id = "die1" src = "die1.png" alt = "blank image">
+	<img id = "die2" src = "die1.png" alt = "blank image">
+	<img id = "die3" src = "die1.png" alt = "blank image">
+	<img id = "die4" src = "die1.png" alt = "blank image">
+	<img id = "die5" src = "die1.png" alt = "blank image">
+	<img id = "die6" src = "die1.png" alt = "blank image">
+	<img id = "die7" src = "die1.png" alt = "blank image">
+	<img id = "die8" src = "die1.png" alt = "blank image">
+	<img id = "die9" src = "die1.png" alt = "blank image">
+	<img id = "die10" src = "die1.png" alt = "blank image">
+	<img id = "die11" src = "die1.png" alt = "blank image">
+	<img id = "die12" src = "die1.png" alt = "blank image">
+
+  <h2>Dice Roll Statistics</h2>
+  <table border="1">
+    <tr>
+      <th>Number</th>
+      <th>Count</th>
+      <th>Percentage</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td id="count1">0</td>
+      <td id="percentage1">0%</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td id="count2">0</td>
+      <td id="percentage2">0%</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td id="count3">0</td>
+      <td id="percentage3">0%</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td id="count4">0</td>
+      <td id="percentage4">0%</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td id="count5">0</td>
+      <td id="percentage5">0%</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td id="count6">0</td>
+      <td id="percentage6">0%</td>
+    </tr>
+  </table>
+
+<script>
+
+function start() 
+{
+  var button = document.getElementById("rollButton");
+  button.addEventListener("click", rollDice);
+  for (var i = 1; i <= 12; i++) 
+  {
+   	window["die" + i + "Img"] = document.getElementById("die" + i);
+  }
+}
+
+function rollDice() 
+{
+  // Clear previous dice values
+  diceValues = [];
+
+  for (var i = 0; i < 12; i++) 
+  {
+    var dieValue = Math.floor(1 + Math.random() * 6);
+    diceValues.push(dieValue);
+    setImage(window["die" + (i + 1) + "Img"], dieValue);
+  }
+
+  updateTable();
+}
+
+function setImage(dieImg, dieValue) 
+{
+  dieImg.setAttribute("src", "die" + dieValue + ".png");
+  dieImg.setAttribute("alt", "die image with " + dieValue + " spot(s)");
+}
+
+function updateTable() 
+{
+  var counts = [0, 0, 0, 0, 0, 0];
+
+  for (var i = 0; i < diceValues.length; i++) 
+  {
+    counts[diceValues[i] - 1]++;
+  }
+
+  for (var i = 0; i < counts.length; i++) 
+  {
+    var countElement = document.getElementById("count" + (i + 1));
+    countElement.textContent = counts[i];
+
+    var percentageElement = document.getElementById("percentage" + (i + 1));
+    var percentage = ((counts[i] / diceValues.length) * 100).toFixed(2);
+    percentageElement.textContent = percentage + "%";
+  }
+}
+
+window.addEventListener("load", start);
+
+</script>
+</body>
+</html>
